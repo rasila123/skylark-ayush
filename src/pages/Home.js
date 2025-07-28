@@ -233,7 +233,7 @@ const Home = () => {
             {artistList.map((artist, idx) => (
               <div key={artist.name + idx}>
                 <div
-                  className="artist-card"
+                  className="artist-card associate-home"
                   style={{cursor:'pointer'}}
                   onClick={() => navigate(`/artist/${encodeURIComponent(artist.name)}`)}
                 >
