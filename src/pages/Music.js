@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import './Music.css';
@@ -46,9 +45,7 @@ const Music = () => {
             onClick={() => window.open(song.url, '_blank')}
           >
             <img src={song.thumbnail} alt={song.title} />
-            <div style={{marginTop:'8px'}}>
-              <p style={{fontWeight:'bold',margin:'0'}}>{song.title}</p>
-            </div>
+            <p>{song.title}</p>
           </div>
         ))}
       </div>
