@@ -56,8 +56,8 @@ const Home = () => {
         {
           breakpoint: 600,
           settings: {
-            slidesToShow: 1,
-            infinite: itemCount > 1,
+            slidesToShow: Math.min(3, itemCount || 1), // Show at least 3 on mobile
+            infinite: itemCount > 3,
           },
         },
       ],
@@ -107,33 +107,33 @@ const Home = () => {
           {/* Left counters */}
           <div className="common-box">
             <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
-            <span className="count-data">20</span><sup>+</sup><span className="count-data"> Yr</span>
+            <span className="count-data">20 + </span>
             <div className="counter-text">Years of Experience</div>
           </div>
           <div className="common-box">
             <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
-            <span className="count-data">1K</span><sup>+</sup>
+            <span className="count-data">1K + </span>
             <div className="counter-text">Satisfied Artists</div>
           </div>
           <div className="common-box">
             <i><img src="https://cdn-icons-png.flaticon.com/512/4472/4472584.png" alt="Audios" /></i>
-            <span className="count-data">30K</span><sup>+</sup>
+            <span className="count-data">30K + </span>
             <div className="counter-text">Audios</div>
           </div>
           {/* Right counters */}
           <div className="common-box">
             <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISmhLTbb8GC8NgGhQMpz3J-0OBbBqwdgUsA&s" alt="Videos" /></i>
-            <span className="count-data">15K</span><sup>+</sup>
+            <span className="count-data">15K + </span>
             <div className="counter-text">Videos</div>
           </div>
           <div className="common-box">
             <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9v03DGCRcA3m53cTgCgk3I-DHv2WzRz-8uA&s" alt="Subscribers" /></i>
-            <span className="count-data">2M</span><sup>+</sup>
+            <span className="count-data">2M + </span>
             <div className="counter-text">Subscribers</div>
           </div>
           <div className="common-box">
             <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEbHSnYazsz4iNmEq6tD_aBVdzq-fgNPmObw&s" alt="Views" /></i>
-            <span className="count-data">7B</span><sup>+</sup>
+            <span className="count-data">7B + </span>
             <div className="counter-text">Views</div>
           </div>
         </div>
