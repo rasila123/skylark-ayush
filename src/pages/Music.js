@@ -37,7 +37,7 @@ const Music = () => {
       <h2>Our Music</h2>
       <div className="song-grid">
         {songs.map((song) => (
-          <div
+          <div id='music-page-card'
             className={
               'song-card' + (highlighted && song.url === highlighted ? ' highlighted-song-card' : '')
             }

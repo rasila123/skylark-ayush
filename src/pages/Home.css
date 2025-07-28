@@ -95,7 +95,8 @@
 .home-container {
   text-align: center;
   color: white;
-  background-color: #121212;
+  /* background-color: #121212; */
+  background: linear-gradient(to top, #1f0505, #000000);
   width: 100%;
   overflow-x: hidden;
 }
@@ -349,7 +350,6 @@ align-items: center;
 .counters-row {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 32px;
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
@@ -464,7 +464,7 @@ align-items: center;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 8px;
+    margin-top: 5vh;
     transition: background 0.2s, transform 0.15s;
   }
   .intro-stat button:hover {
@@ -482,9 +482,6 @@ align-items: center;
   }
 }
 @media (max-width: 1200px) {
-  .counters-row {
-    gap: 18px;
-  }
   .intro-stat {
     min-width: 180px;
     padding: 0 10px;
@@ -495,14 +492,13 @@ align-items: center;
     padding: 18px 0 12px 0;
   }
   .counters-row {
-    gap: 10px;
     flex-wrap: wrap;
   }
   .common-box {
     min-width: 90px;
     min-height: 90px;
     font-size: 1rem;
-    padding: 8px 4px 8px 4px;
+    padding: 50px;
   }
   .intro-stat {
     min-width: 120px;
@@ -520,7 +516,6 @@ align-items: center;
 @media (max-width: 600px) {
   .counters-row {
     align-items: stretch;
-    gap: 8px;
   }
   .intro-stat {
     min-width: 0;
@@ -531,7 +526,7 @@ align-items: center;
     min-width: 0;
     min-height: 0;
     font-size: 0.95rem;
-    padding: 6px 2px 6px 2px;
+    padding: 50px;
   }
 }
 

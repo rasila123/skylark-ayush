@@ -22,6 +22,14 @@
   justify-content: center;
   background: none;
 }
+#music-page-card{
+  width: 280px !important;
+}
+#music-page-card img {
+  height: 280px !important;
+  max-height: 280px !important;
+}
+
 .song-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 32px 0 rgba(237, 155, 55, 0.32), 0 2px 12px rgba(131, 41, 41, 0.12);

@@ -98,7 +98,7 @@ const Home = () => {
       <div className="intro-stat">
         <img src={logo} alt="Skylark Logo Large" className="big-logo" />
         <h1 style={{margin: '10px 0 0 0'}}>Skylark Infotainment</h1>
-        <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p>
+        {/* <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p> */}
         <button onClick={() => navigate('/contact')}>Contact Us</button>
       </div>
       {/* Only show intro content in the center of the counter row below */}
@@ -107,8 +107,8 @@ const Home = () => {
           {/* Left counters */}
           <div className="common-box">
             <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
-            <span className="count-data">20 + </span>
-            <div className="counter-text">Years of Experience</div>
+            <span className="count-data">20 + Years</span>
+            <div className="counter-text">Experience</div>
           </div>
           <div className="common-box">
             <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
