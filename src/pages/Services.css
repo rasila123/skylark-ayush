@@ -1,0 +1,12 @@
+.services-page {
+  padding: 40px 20px;
+  text-align: center;
+}
+.services-page ul {
+  list-style: none;
+  padding: 0;
+}
+.services-page li {
+  margin: 10px 0;
+  font-size: 18px;
+}

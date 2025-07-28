@@ -1,0 +1,24 @@
+.associates-page {
+  padding: 40px 20px;
+  /* background: #101010;
+  color: white; */
+  text-align: center;
+}
+.artist-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.artist-card {
+  background: #1a1a1a;
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 140px;
+}
+.artist-card img {
+  width: 100%;
+  border-radius: 50%;
+}
