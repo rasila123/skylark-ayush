@@ -28,7 +28,7 @@ const Associates = () => {
 
   return (
     <div className="associates-page">
-      <h2>Our Associates</h2>
+      <h2 class="section-heading">Our Associates</h2>
       <div className="artist-grid">
         {artistList.map((artist, idx) => (
           <div

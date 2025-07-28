@@ -591,3 +591,43 @@ align-items: center;
     text-align: center;
   }
 }
+.section-heading {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 3px;
+    margin: 40px 0 40px;
+    background: linear-gradient(181deg, #ff0000, #000000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+  }
+
+  .section-heading span {
+    cursor: pointer;
+    display: inline-block;
+    color: #ffffff;
+    /* background-color: #111; */
+    padding: 0 10px;
+    border-radius: 8px;
+    margin-left: 8px;
+  }
+
+  .section-heading span:hover {
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transition: background 0.5s ease;
+  }
+
+  /* Optional: underline effect */
+  .section-heading::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 4px;
+    background: #e52e71;
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }

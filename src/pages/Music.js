@@ -34,7 +34,7 @@ const Music = () => {
 
   return (
     <div className="music-page">
-      <h2>Our Music</h2>
+      <h2 class="section-heading">Our Music</h2>
       <div className="song-grid">
         {songs.map((song) => (
           <div id='music-page-card'

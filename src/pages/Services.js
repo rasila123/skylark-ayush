@@ -10,7 +10,7 @@ const services = [
 const Services = () => {
   return (
     <div className="services-page">
-      <h2>Our Services</h2>
+      <h2 class="section-heading">Our Services</h2>
       <ul>
         {services.map((service, index) => <li key={index}>{service}</li>)}
       </ul>

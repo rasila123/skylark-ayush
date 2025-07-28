@@ -2,6 +2,7 @@
 import React from 'react';
 import './Home.css';
 //import introVideo from '../assets/intro.mp4';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -139,7 +140,7 @@ const Home = () => {
         </div>
       </div>
       <div className="main-sections-bg">
-        <h2>Our Labels</h2>
+        <h2 class="section-heading">Our <span>Labels</span></h2>
         <section className="cards-section">
           <div
             className="card animated-card"
@@ -158,7 +159,7 @@ const Home = () => {
         </section>
 
         <section className="presence-section">
-          <h2>Our Presence</h2>
+          <h2 class="section-heading">Our <span>Presence</span></h2>
           <div className="platforms">
             {(() => {
               const logoMap = {
@@ -228,7 +229,7 @@ const Home = () => {
         </section>
 
         <section className="associates-section">
-          <h2>Our Artists</h2>
+          <h2 class="section-heading">Our <Link to="/associates"><span className="clickable">Artists</span></Link></h2>
           <Slider {...getCarouselSettings(artistList.length)}>
             {artistList.map((artist, idx) => (
               <div key={artist.name + idx}>
@@ -245,7 +246,7 @@ const Home = () => {
           </Slider>
         </section>
         <section className="music-section">
-          <h2>Our Music</h2>
+          <h2 class="section-heading">Our <Link to="/music"><span className="clickable">Music</span></Link></h2>
           <Slider {...getCarouselSettings(songs.length)}>
             {songs.map((song) => (
               <div key={song.id}>

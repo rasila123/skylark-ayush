@@ -25,7 +25,7 @@ const ArtistPage = () => {
 
   return (
     <div className="artist-songs-page">
-      <h2>{artistId.toUpperCase()} Songs</h2>
+      <h2 class="section-heading">{artistId.toUpperCase()} Songs</h2>
       {loading ? (
         <p style={{color:'#aaa'}}>Loading songs...</p>
       ) : songs.length === 0 ? (
