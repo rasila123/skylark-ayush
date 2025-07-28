@@ -1,18 +1,18 @@
 // Code cleanup: Removed all unused variables, destructured errors, and unused functions to resolve ESLint warnings.
 // Fixed useEffect dependency warning. Updated favicon in index.html for global app use.
 // No logic was changed, only unused code was removed or fixed for code quality.
-import React, { useState, useEffect, useMemo } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
+import './Admin.css';
 
 
 
 const Admin = () => {
   const [authed, setAuthed] = useState(false);
-  const [email, setEmail] = useState('');
-  // removed unused user state
-  // List of allowed admin emails (memoized to avoid useEffect dependency warning)
-  const allowedAdmins = useMemo(() => ['ayush1'], []);
+  const [secret, setSecret] = useState('');
+  const [showSecret, setShowSecret] = useState(false);
   const [songUrl, setSongUrl] = useState('');
   const [songImage, setSongImage] = useState(null);
   const [songName, setSongName] = useState('');
@@ -56,21 +56,19 @@ const Admin = () => {
     setLoadingSongs(false);
   };
 
-  // Simple local admin login (replace with Supabase Auth if needed)
-  useEffect(() => {
-    // For demo: always authed if email in allowedAdmins
-    if (allowedAdmins.includes(email)) {
-      setAuthed(true);
-    } else {
-      setAuthed(false);
-    }
-  }, [email, allowedAdmins]);
-
+  // Login handler: check secret code from DB
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
-    if (!allowedAdmins.includes(email)) {
-      setError('You are not authorized to access this admin panel.');
+    // Fetch password from DB (table: password, column: password)
+    const { data, error: dbError } = await supabase.from('password').select('password').single();
+    if (dbError || !data || !data.password) {
+      setError('Error fetching secret code from server.');
+      setAuthed(false);
+      return;
+    }
+    if (secret !== data.password) {
+      setError('Incorrect secret code.');
       setAuthed(false);
       return;
     }
@@ -79,7 +77,7 @@ const Admin = () => {
 
   const handleLogout = async () => {
     setAuthed(false);
-    setEmail('');
+    setSecret('');
   };
 
   const handleImageChange = (e) => {
@@ -128,58 +126,35 @@ const Admin = () => {
 
   if (!authed) {
     return (
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: 'linear-gradient(135deg, #232526 0%, #414345 100%)',
-      }}>
-        <div style={{
-          background: '#181818',
-          borderRadius: '16px',
-          boxShadow: '0 4px 32px #0006',
-          padding: '40px 32px',
-          minWidth: '320px',
-          maxWidth: '90vw',
-        }}>
-          <h2 style={{textAlign:'center',marginBottom:'28px',color:'#fff',letterSpacing:'1px'}}>Admin Login</h2>
-          <form onSubmit={handleLogin}>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              style={{
-                padding:'12px',
-                fontSize:'1.1rem',
-                marginBottom:'18px',
-                width:'100%',
-                borderRadius:'8px',
-                border:'1px solid #333',
-                background:'#232526',
-                color:'#fff',
-                outline:'none',
-                boxSizing:'border-box',
-              }}
-              autoComplete="username"
-            />
-            <button type="submit" style={{
-              marginTop:'8px',
-              padding:'12px 0',
-              width:'100%',
-              fontWeight:'bold',
-              fontSize:'1.1em',
-              borderRadius:'8px',
-              border:'none',
-              background:'linear-gradient(90deg,#ff0055,#00cfff)',
-              color:'#fff',
-              cursor:'pointer',
-              boxShadow:'0 2px 8px #0002',
-              letterSpacing:'1px',
-            }}>Login</button>
+      <div className="admin-login-bg">
+        <div className="admin-login-box">
+          <h2 className="admin-login-title">Admin Login</h2>
+          <form onSubmit={handleLogin} autoComplete="off">
+            <div className="admin-secret-field">
+              <input
+                type={showSecret ? 'text' : 'password'}
+                placeholder="enter secret code"
+                value={secret}
+                onChange={e => setSecret(e.target.value)}
+                className="admin-login-input"
+                autoComplete="off"
+              />
+              <span
+                className="admin-eye-icon"
+                onClick={() => setShowSecret(s => !s)}
+                tabIndex={0}
+                aria-label={showSecret ? 'Hide code' : 'Show code'}
+              >
+                {showSecret ? (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 1l22 22"/><path d="M17.94 17.94A10.94 10.94 0 0 1 12 19C7 19 2.73 15.11 1 12c.74-1.32 1.81-2.87 3.08-4.13M9.88 9.88A3 3 0 0 1 12 9c1.66 0 3 1.34 3 3 0 .39-.08.76-.21 1.1"/><path d="M21 21L3 3"/></svg>
+                ) : (
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="12" rx="10" ry="7"/><circle cx="12" cy="12" r="3"/></svg>
+                )}
+              </span>
+            </div>
+            <button type="submit" className="admin-login-btn">Login</button>
           </form>
-          {error && <p style={{color:'#ff4444',marginTop:'18px',textAlign:'center'}}>{error}</p>}
+          {error && <p className="admin-login-error">{error}</p>}
         </div>
       </div>
     );
@@ -273,19 +248,19 @@ const Admin = () => {
   // Card UI for options
   if (!option) {
     return (
-      <div style={{maxWidth:'600px',margin:'40px auto',padding:'24px',background:'#181818',color:'#fff',borderRadius:'12px',boxShadow:'0 2px 12px #0002'}}>
-        <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+      <div className="admin-panel-container">
+        <div className="admin-panel-header">
           <h2>Admin Panel</h2>
-          <button onClick={handleLogout} style={{background:'#333',color:'#fff',border:'none',padding:'8px 16px',borderRadius:'6px',cursor:'pointer'}}>Logout</button>
+          <button onClick={handleLogout} className="admin-logout-btn">Logout</button>
         </div>
-        <div style={{display:'flex',gap:'32px',justifyContent:'center',marginTop:'32px'}}>
-          <div onClick={()=>setOption('add')} style={{flex:'1',background:'#222',padding:'32px 18px',borderRadius:'12px',cursor:'pointer',boxShadow:'0 2px 8px #0002',textAlign:'center',transition:'0.2s'}}>
-            <div style={{fontSize:'2.2em',marginBottom:'12px'}}>🎵</div>
-            <div style={{fontWeight:'bold',fontSize:'1.2em'}}>Add Music</div>
+        <div className="admin-panel-options">
+          <div onClick={()=>setOption('add')} className="admin-panel-option">
+            <div className="admin-panel-option-icon">🎵</div>
+            <div className="admin-panel-option-label">Add Music</div>
           </div>
-          <div onClick={()=>setOption('update')} style={{flex:'1',background:'#222',padding:'32px 18px',borderRadius:'12px',cursor:'pointer',boxShadow:'0 2px 8px #0002',textAlign:'center',transition:'0.2s'}}>
-            <div style={{fontSize:'2.2em',marginBottom:'12px'}}>✏️</div>
-            <div style={{fontWeight:'bold',fontSize:'1.2em'}}>Update Music</div>
+          <div onClick={()=>setOption('update')} className="admin-panel-option">
+            <div className="admin-panel-option-icon">✏️</div>
+            <div className="admin-panel-option-label">Update Music</div>
           </div>
         </div>
       </div>
@@ -295,15 +270,15 @@ const Admin = () => {
   // Add Music UI
   if (option === 'add') {
     return (
-      <div style={{maxWidth:'500px',margin:'40px auto',padding:'24px',background:'#181818',color:'#fff',borderRadius:'12px',boxShadow:'0 2px 12px #0002'}}>
-        <button onClick={()=>setOption(null)} style={{marginBottom:'18px',background:'none',color:'#fff',border:'none',fontSize:'1.1em',cursor:'pointer'}}>&larr; Back</button>
+      <div className="admin-add-container">
+        <button onClick={()=>setOption(null)} className="admin-back-btn">&larr; Back</button>
         <h2>Upload New Song</h2>
         <form onSubmit={handleUploadWithArtist}>
-          <div style={{marginBottom:'12px'}}>
+          <div className="admin-form-group">
             <label>Song Name: </label>
-            <input type="text" value={songName} onChange={e => setSongName(e.target.value)} style={{width:'100%'}} placeholder="Song Name" />
+            <input type="text" value={songName} onChange={e => setSongName(e.target.value)} className="admin-input" placeholder="Song Name" />
           </div>
-          <div style={{marginBottom:'12px',position:'relative'}}>
+          <div className="admin-form-group admin-artist-group">
             <label>Artist Name: </label>
             <input
               type="text"
@@ -315,16 +290,16 @@ const Admin = () => {
               }}
               onFocus={() => { if (artistName.length > 0) setShowDropdown(true); }}
               onBlur={() => setTimeout(() => setShowDropdown(false), 150)}
-              style={{width:'100%'}}
+              className="admin-input"
               placeholder="Artist Name"
               autoComplete="off"
             />
             {showDropdown && artistList.length > 0 && (
-              <div style={{position:'absolute',zIndex:10,background:'#222',color:'#fff',width:'100%',borderRadius:'6px',boxShadow:'0 2px 8px #0003',maxHeight:'160px',overflowY:'auto'}}>
+              <div className="admin-dropdown">
                 {artistList.filter(name => name.toLowerCase().includes(artistName.toLowerCase()) && name !== artistName).map((name, idx) => (
                   <div
                     key={name+idx}
-                    style={{padding:'8px 12px',cursor:'pointer'}}
+                    className="admin-dropdown-item"
                     onMouseDown={() => {
                       setArtistName(name);
                       setShowDropdown(false);
@@ -334,27 +309,27 @@ const Admin = () => {
                   </div>
                 ))}
                 {artistList.filter(name => name.toLowerCase().includes(artistName.toLowerCase()) && name !== artistName).length === 0 && (
-                  <div style={{padding:'8px 12px',color:'#aaa'}}>No match. New artist will be added.</div>
+                  <div className="admin-dropdown-no-match">No match. New artist will be added.</div>
                 )}
               </div>
             )}
           </div>
-          <div style={{marginBottom:'12px'}}>
+          <div className="admin-form-group">
             <label>Artist Photo (optional): </label>
             <input type="file" accept="image/*" onChange={handleArtistPhotoChange} />
           </div>
-          <div style={{marginBottom:'12px'}}>
+          <div className="admin-form-group">
             <label>Song Image: </label>
             <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
-          <div style={{marginBottom:'12px'}}>
+          <div className="admin-form-group">
             <label>Song URL: </label>
-            <input type="text" value={songUrl} onChange={e => setSongUrl(e.target.value)} style={{width:'100%'}} placeholder="https://..." />
+            <input type="text" value={songUrl} onChange={e => setSongUrl(e.target.value)} className="admin-input" placeholder="https://..." />
           </div>
-          <button type="submit" disabled={uploading} style={{padding:'8px 18px',fontWeight:'bold'}}>Upload</button>
+          <button type="submit" disabled={uploading} className="admin-upload-btn">Upload</button>
         </form>
-        {error && <p style={{color:'red'}}>{error}</p>}
-        {success && <p style={{color:'lightgreen'}}>{success}</p>}
+        {error && <p className="admin-error-msg">{error}</p>}
+        {success && <p className="admin-success-msg">{success}</p>}
       </div>
     );
   }
@@ -362,23 +337,23 @@ const Admin = () => {
   // Update Music UI
   if (option === 'update') {
     return (
-      <div style={{maxWidth:'500px',margin:'40px auto',padding:'24px',background:'#181818',color:'#fff',borderRadius:'12px',boxShadow:'0 2px 12px #0002'}}>
-        <button onClick={()=>setOption(null)} style={{marginBottom:'18px',background:'none',color:'#fff',border:'none',fontSize:'1.1em',cursor:'pointer'}}>&larr; Back</button>
+      <div className="admin-update-container">
+        <button onClick={()=>setOption(null)} className="admin-back-btn">&larr; Back</button>
         <h2>Update Music</h2>
         {loadingSongs ? (
-          <p style={{color:'#aaa'}}>Loading songs...</p>
+          <p className="admin-loading-msg">Loading songs...</p>
         ) : songs.length === 0 ? (
-          <p style={{color:'#aaa'}}>No uploaded songs yet.</p>
+          <p className="admin-loading-msg">No uploaded songs yet.</p>
         ) : (
-          <div style={{display:'flex',flexDirection:'column',gap:'16px'}}>
+          <div className="admin-song-list">
             {songs.map((song) => (
-              <div key={song.id} style={{display:'flex',alignItems:'center',background:'#222',borderRadius:'8px',padding:'8px 12px'}}>
-                <img src={song.thumbnail} alt={song.title} style={{width:'48px',height:'48px',objectFit:'cover',borderRadius:'6px',marginRight:'12px'}} />
-                <div style={{flex:'1'}}>
-                  <div style={{fontWeight:'bold'}}>{song.title}</div>
-                  <div style={{fontSize:'0.95em',color:'#ccc'}}>{song.artist}</div>
+              <div key={song.id} className="admin-song-item">
+                <img src={song.thumbnail} alt={song.title} className="admin-song-thumb" />
+                <div className="admin-song-info">
+                  <div className="admin-song-title">{song.title}</div>
+                  <div className="admin-song-artist">{song.artist}</div>
                 </div>
-                <button onClick={() => setEditSong(song)} style={{background:'none',border:'none',color:'#00cfff',fontSize:'1.3em',cursor:'pointer',marginLeft:'8px'}} title="Edit">
+                <button onClick={() => setEditSong(song)} className="admin-edit-btn" title="Edit">
                   <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00cfff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
                 </button>
               </div>
@@ -387,8 +362,8 @@ const Admin = () => {
         )}
         {/* Edit Song Modal */}
         {editSong && (
-          <div style={{position:'fixed',top:0,left:0,width:'100vw',height:'100vh',background:'#000a',display:'flex',alignItems:'center',justifyContent:'center',zIndex:1000}}>
-            <div style={{background:'#222',padding:'32px',borderRadius:'12px',minWidth:'320px',maxWidth:'90vw',color:'#fff',boxShadow:'0 2px 12px #0006'}}>
+          <div className="admin-edit-modal-bg">
+            <div className="admin-edit-modal">
               <h3>Edit Song</h3>
               <form onSubmit={async (e) => {
                 e.preventDefault();
@@ -463,29 +438,29 @@ const Admin = () => {
                   setArtistList(updatedArtists.map(a => a.name));
                 }
               }}>
-                <div style={{marginBottom:'12px'}}>
+                <div className="admin-form-group">
                   <label>Song Name: </label>
-                  <input type="text" name="title" defaultValue={editSong.title} style={{width:'100%'}} />
+                  <input type="text" name="title" defaultValue={editSong.title} className="admin-input" />
                 </div>
-                <div style={{marginBottom:'12px'}}>
+                <div className="admin-form-group">
                   <label>Artist Name: </label>
-                  <input type="text" name="artist" defaultValue={editSong.artist} style={{width:'100%'}} />
+                  <input type="text" name="artist" defaultValue={editSong.artist} className="admin-input" />
                 </div>
-                <div style={{marginBottom:'12px'}}>
+                <div className="admin-form-group">
                   <label>Artist Photo (optional): </label>
                   <input type="file" name="artistPhoto" accept="image/*" />
                 </div>
-                <div style={{marginBottom:'12px'}}>
+                <div className="admin-form-group">
                   <label>Thumbnail: </label>
                   <input type="file" name="thumbnail" accept="image/*" />
-                  <img src={editSong.thumbnail} alt="Current Thumbnail" style={{width:'48px',height:'48px',objectFit:'cover',borderRadius:'6px',marginTop:'8px'}} />
+                  <img src={editSong.thumbnail} alt="Current Thumbnail" className="admin-edit-thumb" />
                 </div>
-                <div style={{marginBottom:'12px'}}>
+                <div className="admin-form-group">
                   <label>Song URL: </label>
-                  <input type="text" name="url" defaultValue={editSong.url} style={{width:'100%'}} />
+                  <input type="text" name="url" defaultValue={editSong.url} className="admin-input" />
                 </div>
-                <button type="submit" disabled={uploading} style={{padding:'8px 18px',fontWeight:'bold'}}>Save</button>
-                <button type="button" onClick={()=>setEditSong(null)} style={{marginLeft:'12px',padding:'8px 18px',fontWeight:'bold',background:'#333',color:'#fff',border:'none',borderRadius:'6px',cursor:'pointer'}}>Cancel</button>
+                <button type="submit" disabled={uploading} className="admin-save-btn">Save</button>
+                <button type="button" onClick={()=>setEditSong(null)} className="admin-cancel-btn">Cancel</button>
                 <button type="button" onClick={async()=>{
                   if(window.confirm('Delete this song?')){
                     setUploading(true);
@@ -493,9 +468,9 @@ const Admin = () => {
                     setEditSong(null);
                     setUploading(false);
                   }
-                }} style={{marginLeft:'12px',padding:'8px 18px',fontWeight:'bold',background:'#ff4444',color:'#fff',border:'none',borderRadius:'6px',cursor:'pointer'}}>Delete</button>
-                {error && <p style={{color:'red'}}>{error}</p>}
-                {success && <p style={{color:'lightgreen'}}>{success}</p>}
+                }} className="admin-delete-btn">Delete</button>
+                {error && <p className="admin-error-msg">{error}</p>}
+                {success && <p className="admin-success-msg">{success}</p>}
               </form>
             </div>
           </div>

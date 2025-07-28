@@ -1,130 +1,143 @@
-import React, { useEffect, useState } from 'react';
+//import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Home.css';
-import introVideo from '../assets/intro.mp4';
+//import introVideo from '../assets/intro.mp4';
 import logo from '../assets/logo.png';
-import Associates from './Associates';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const [showContent, setShowContent] = useState(false);
-  const [fadeOutVideo, setFadeOutVideo] = useState(false);
+  // Intro video logic disabled; show all content by default
+  const navigate = useNavigate();
 
+  /*
   useEffect(() => {
     const timer = setTimeout(() => {
       setFadeOutVideo(true);
       setTimeout(() => {
         setShowContent(true);
-        // Do NOT hide the video element
+        // Show main content after 1.5s (or adjust as needed)
+        setTimeout(() => setShowMainContent(true), 1200);
       }, 1000); // 1s fade duration
     }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
+  */
 
-  // Animated crazy cursor effect
-  useEffect(() => {
-    // Always ensure the global crazy-cursor exists
-    let cursor = document.getElementById('crazy-cursor-global');
-    if (!cursor) {
-      cursor = document.createElement('div');
-      cursor.className = 'crazy-cursor';
-      cursor.id = 'crazy-cursor-global';
-      const burstLines = 28;
-      const dotsPerLine = 7;
-      const maxDistance = 48;
-      const minDistance = 12;
-      const colors = [
-        '#ff0055', '#00cfff', '#ffe600', '#00ff2a', '#ff00cc', '#ffb300', '#00ffea', '#a100ff',
-        '#ff0055', '#00cfff', '#ffe600', '#00ff2a', '#ff00cc', '#ffb300', '#00ffea', '#a100ff',
-      ];
-      for (let i = 0; i < burstLines; i++) {
-        const angle = (360 / burstLines) * i;
-        for (let j = 1; j <= dotsPerLine; j++) {
-          const dot = document.createElement('div');
-          dot.className = 'crazy-cursor-dot';
-          dot.style.setProperty('--angle', `${angle}deg`);
-          const dist = minDistance + ((maxDistance - minDistance) * (j - 1)) / (dotsPerLine - 1);
-          dot.style.setProperty('--distance', `${dist}px`);
-          dot.style.setProperty('--dot-color', colors[(i + j) % colors.length]);
-          dot.style.setProperty('--dot-delay', `${(j * 0.07 + i * 0.01)}s`);
-          cursor.appendChild(dot);
-        }
+  // Dynamic carousel settings for both sections
+  const getCarouselSettings = (itemCount) => {
+    // Default slidesToShow for desktop
+    let slidesToShow = 4;
+    if (itemCount < 4) slidesToShow = itemCount || 1;
+    return {
+      dots: true,
+      infinite: itemCount > slidesToShow, // Only infinite if enough items
+      speed: 500,
+      slidesToShow,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: Math.min(3, itemCount || 1),
+            infinite: itemCount > 3,
+          },
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: Math.min(2, itemCount || 1),
+            infinite: itemCount > 2,
+          },
+        },
+        {
+          breakpoint: 600,
+          settings: {
+            slidesToShow: 1,
+            infinite: itemCount > 1,
+          },
+        },
+      ],
+      arrows: true,
+    };
+  };
+
+  // Get artistList and songs from child components (Associates, Music)
+  // We'll use hooks in Home.js to fetch the same data as those components
+  const [artistList, setArtistList] = React.useState([]);
+  const [songs, setSongs] = React.useState([]);
+  React.useEffect(() => {
+    // Fetch artists
+    import('./Associates').then(({ default: AssociatesComp }) => {
+      if (AssociatesComp && AssociatesComp.fetchArtists) {
+        AssociatesComp.fetchArtists().then(setArtistList);
+      } else {
+        // fallback: fetch from supabase directly
+        import('../supabaseClient').then(({ supabase }) => {
+          supabase.from('artists').select('*').then(({ data }) => {
+            if (data) setArtistList(data.map(a => ({ name: a.name, img: a.photo })));
+          });
+        });
       }
-      document.body.appendChild(cursor);
-    }
-    // Always update the cursor position on mousemove
-    const setInitial = () => {
-      const x = window.innerWidth / 2 - 12;
-      const y = window.innerHeight / 2 - 12;
-      cursor.style.transform = `translate(${x}px, ${y}px)`;
-    };
-    setInitial();
-    const move = (e) => {
-      cursor.style.transform = `translate(${e.clientX - 12}px, ${e.clientY - 12}px)`;
-    };
-    window.addEventListener('mousemove', move);
-    window.addEventListener('resize', setInitial);
-    // Clean up only the event listeners, not the global cursor
-    return () => {
-      window.removeEventListener('mousemove', move);
-      window.removeEventListener('resize', setInitial);
-    };
+    });
+    // Fetch songs
+    import('../supabaseClient').then(({ supabase }) => {
+      supabase.from('songs').select('*').then(({ data }) => {
+        if (data) setSongs(data);
+      });
+    });
   }, []);
 
   return (
     <div className="home-container">
-      <video
-        autoPlay
-        muted
-        className={`intro-video${fadeOutVideo ? ' fade-out' : ''}`}
-      >
-        <source src={introVideo} type="video/mp4" />
-      </video>
-
-      {showContent && (
-        <div className={`intro-content${showContent ? ' fade-in' : ''}`}>
-          <img src={logo} alt="Skylark Logo Large" className="big-logo" />
-          <h1>Skylark Infotainment</h1>
-          <p>Music Beyond Limits</p>
-          <a href="/contact"><button>Contact Us</button></a>
-        </div>
-      )}
-      {showContent && (
-        <div className="countercont">
-          <div className="row counters d-flex flex-row">
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
-              <span className="count-data">20</span><sup>+</sup><span className="count-data"> Yr</span>
-              <div className="counter-text">Years of Experience</div>
-            </div>
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
-              <span className="count-data">1K</span><sup>+</sup>
-              <div className="counter-text">Satisfied Artists</div>
-            </div>
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://cdn-icons-png.flaticon.com/512/4472/4472584.png" alt="Audios" /></i>
-              <span className="count-data">30K</span><sup>+</sup>
-              <div className="counter-text">Audios</div>
-            </div>
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISmhLTbb8GC8NgGhQMpz3J-0OBbBqwdgUsA&s" alt="Videos" /></i>
-              <span className="count-data">15K</span><sup>+</sup>
-              <div className="counter-text">Videos</div>
-            </div>
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9v03DGCRcA3m53cTgCgk3I-DHv2WzRz-8uA&s" alt="Subscribers" /></i>
-              <span className="count-data">2M</span><sup>+</sup>
-              <div className="counter-text">Subscribers</div>
-            </div>
-            <div className="common-box col-md-2 col-sm-4">
-              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEbHSnYazsz4iNmEq6tD_aBVdzq-fgNPmObw&s" alt="Views" /></i>
-              <span className="count-data">7B</span><sup>+</sup>
-              <div className="counter-text">Views</div>
-            </div>
+      {/* Intro video and transition logic disabled */}
+      {/* Center logo and intro */}
+      <div className="intro-stat">
+        <img src={logo} alt="Skylark Logo Large" className="big-logo" />
+        <h1 style={{margin: '10px 0 0 0'}}>Skylark Infotainment</h1>
+        <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p>
+        <button onClick={() => navigate('/contact')}>Contact Us</button>
+      </div>
+      {/* Only show intro content in the center of the counter row below */}
+      <div className="countercont">
+        <div className="counters-row">
+          {/* Left counters */}
+          <div className="common-box">
+            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
+            <span className="count-data">20</span><sup>+</sup><span className="count-data"> Yr</span>
+            <div className="counter-text">Years of Experience</div>
+          </div>
+          <div className="common-box">
+            <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
+            <span className="count-data">1K</span><sup>+</sup>
+            <div className="counter-text">Satisfied Artists</div>
+          </div>
+          <div className="common-box">
+            <i><img src="https://cdn-icons-png.flaticon.com/512/4472/4472584.png" alt="Audios" /></i>
+            <span className="count-data">30K</span><sup>+</sup>
+            <div className="counter-text">Audios</div>
+          </div>
+          {/* Right counters */}
+          <div className="common-box">
+            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISmhLTbb8GC8NgGhQMpz3J-0OBbBqwdgUsA&s" alt="Videos" /></i>
+            <span className="count-data">15K</span><sup>+</sup>
+            <div className="counter-text">Videos</div>
+          </div>
+          <div className="common-box">
+            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9v03DGCRcA3m53cTgCgk3I-DHv2WzRz-8uA&s" alt="Subscribers" /></i>
+            <span className="count-data">2M</span><sup>+</sup>
+            <div className="counter-text">Subscribers</div>
+          </div>
+          <div className="common-box">
+            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEbHSnYazsz4iNmEq6tD_aBVdzq-fgNPmObw&s" alt="Views" /></i>
+            <span className="count-data">7B</span><sup>+</sup>
+            <div className="counter-text">Views</div>
           </div>
         </div>
-      )}
-
+      </div>
       <div className="main-sections-bg">
         <h2>Our Labels</h2>
         <section className="cards-section">
@@ -215,7 +228,39 @@ const Home = () => {
         </section>
 
         <section className="associates-section">
-          <Associates/>
+          <h2>Our Artists</h2>
+          <Slider {...getCarouselSettings(artistList.length)}>
+            {artistList.map((artist, idx) => (
+              <div key={artist.name + idx}>
+                <div
+                  className="artist-card"
+                  style={{cursor:'pointer'}}
+                  onClick={() => navigate(`/artist/${encodeURIComponent(artist.name)}`)}
+                >
+                  <img src={artist.img || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={artist.name} style={{width:'120px',height:'120px',objectFit:'cover',borderRadius:'50%',display:'block',margin:'0 auto'}} />
+                  <p>{artist.name}</p>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </section>
+        <section className="music-section">
+          <h2>Our Music</h2>
+          <Slider {...getCarouselSettings(songs.length)}>
+            {songs.map((song) => (
+              <div key={song.id}>
+                <div
+                  className={'song-card'}
+                  onClick={() => window.open(song.url, '_blank')}
+                >
+                  <img src={song.thumbnail} alt={song.title} />
+                  <div style={{marginTop:'8px'}}>
+                    <p style={{fontWeight:'bold',margin:'0'}}>{song.title}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
         </section>
       </div>
     </div>

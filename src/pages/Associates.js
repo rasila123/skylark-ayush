@@ -37,7 +37,7 @@ const Associates = () => {
             style={{cursor:'pointer'}}
             onClick={() => navigate(`/artist/${encodeURIComponent(artist.name)}`)}
           >
-            <img src={artist.img || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={artist.name} style={{width:'120px',height:'120px',objectFit:'cover',borderRadius:'50%',display:'block',margin:'0 auto'}} />
+            <img src={artist.img || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={artist.name} />
             <p>{artist.name}</p>
           </div>
         ))}

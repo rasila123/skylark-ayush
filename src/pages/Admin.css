@@ -1,0 +1,313 @@
+/* Admin Login Styles */
+.admin-login-bg {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+}
+.admin-login-box {
+  background: #181818;
+  border-radius: 16px;
+  box-shadow: 0 4px 32px #0006;
+  padding: 40px 32px;
+  min-width: 320px;
+  max-width: 90vw;
+}
+.admin-login-title {
+  text-align: center;
+  margin-bottom: 28px;
+  color: #fff;
+  letter-spacing: 1px;
+}
+.admin-login-input {
+  padding: 12px;
+  font-size: 1.1rem;
+  margin-bottom: 18px;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background: #232526;
+  color: #fff;
+  outline: none;
+  box-sizing: border-box;
+  display: block;
+}
+.admin-login-btn {
+  margin-top: 8px;
+  padding: 12px 0;
+  width: 100%;
+  font-weight: bold;
+  font-size: 1.1em;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(90deg,#ff0055,#00cfff);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0002;
+  letter-spacing: 1px;
+}
+.admin-login-error {
+  color: #ff4444;
+  margin-top: 18px;
+  text-align: center;
+}
+
+/* Admin Panel Styles */
+.admin-panel-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0002;
+}
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-logout-btn {
+  background: #333;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.admin-panel-options {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  margin-top: 32px;
+}
+.admin-panel-option {
+  flex: 1;
+  background: #222;
+  padding: 32px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0002;
+  text-align: center;
+  transition: 0.2s;
+}
+.admin-panel-option:hover {
+  background: #252525;
+  box-shadow: 0 4px 16px #0003;
+}
+.admin-panel-option-icon {
+  font-size: 2.2em;
+  margin-bottom: 12px;
+}
+.admin-panel-option-label {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* Add Music Styles */
+.admin-add-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0002;
+}
+.admin-back-btn {
+  margin-bottom: 18px;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+.admin-form-group {
+  margin-bottom: 12px;
+}
+.admin-input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #333;
+  background: #232526;
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  box-sizing: border-box;
+}
+.admin-artist-group { position: relative; }
+.admin-dropdown {
+  position: absolute;
+  z-index: 10;
+  background: #222;
+  color: #fff;
+  width: 100%;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px #0003;
+  max-height: 160px;
+  overflow-y: auto;
+}
+.admin-dropdown-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+.admin-dropdown-item:hover {
+  background: #333;
+}
+.admin-dropdown-no-match {
+  padding: 8px 12px;
+  color: #aaa;
+}
+.admin-upload-btn {
+  padding: 8px 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg,#ff0055,#00cfff);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+}
+.admin-error-msg {
+  color: red;
+  margin-top: 10px;
+}
+.admin-success-msg {
+  color: lightgreen;
+  margin-top: 10px;
+}
+
+/* Update Music Styles */
+.admin-update-container {
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 24px;
+  background: #181818;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px #0002;
+}
+.admin-loading-msg {
+  color: #aaa;
+}
+.admin-song-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.admin-song-item {
+  display: flex;
+  align-items: center;
+  background: #222;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.admin-song-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 12px;
+}
+.admin-song-info {
+  flex: 1;
+}
+.admin-song-title {
+  font-weight: bold;
+}
+.admin-song-artist {
+  font-size: 0.95em;
+  color: #ccc;
+}
+.admin-edit-btn {
+  background: none;
+  border: none;
+  color: #00cfff;
+  font-size: 1.3em;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+/* Edit Song Modal */
+.admin-edit-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.admin-edit-modal {
+  background: #222;
+  padding: 32px;
+  border-radius: 12px;
+  min-width: 320px;
+  max-width: 90vw;
+  color: #fff;
+  box-shadow: 0 2px 12px #0006;
+}
+.admin-edit-thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+.admin-save-btn {
+  padding: 8px 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(90deg,#00cfff,#ff0055);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+}
+.admin-cancel-btn {
+  margin-left: 12px;
+  padding: 8px 18px;
+  font-weight: bold;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.admin-delete-btn {
+  margin-left: 12px;
+  padding: 8px 18px;
+  font-weight: bold;
+  background: #ff4444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Secret code field with eye icon */
+.admin-secret-field {
+  position: relative;
+  width: 100%;
+  margin-bottom: 18px;
+}
+.admin-secret-field .admin-login-input {
+  padding-right: 40px; /* space for the eye icon */
+}
+.admin-eye-icon {
+  position: absolute;
+  top: 0;
+  right: 12px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+}
