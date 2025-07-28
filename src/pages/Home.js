@@ -98,7 +98,7 @@ const Home = () => {
       {/* Center logo and intro */}
       <div className="intro-stat">
         <img src={logo} alt="Skylark Logo Large" className="big-logo" />
-        <h1 style={{margin: '10px 0 0 0'}}>Skylark Infotainment</h1>
+        <h1 class="section-heading-h1" >Skylark Infotainment</h1>
         {/* <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p> */}
         <button onClick={() => navigate('/contact')}>Contact Us</button>
       </div>
