@@ -17,6 +17,8 @@
   width: 25%;
   height: 25%;
   min-width: 300px;
+  max-width: 300px;
+  max-height: 300px;
   position: relative;
   overflow: hidden;
   text-align: center;
