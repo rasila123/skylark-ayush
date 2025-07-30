@@ -54,7 +54,7 @@ const Contact = () => {
             <FontAwesomeIcon icon={faPhone} />
           </a>
           <a
-            href="https://www.facebook.com/skylark"
+            href="https://www.facebook.com/share/1BD2nxbD2k/"
             target="_blank"
             rel="noreferrer"
             title="Facebook"
@@ -63,7 +63,7 @@ const Contact = () => {
             <FontAwesomeIcon icon={faFacebook} />
           </a>
           <a
-            href="https://www.instagram.com/skylark"
+            href="https://www.instagram.com/skylark_infotainment?utm_source=qr&igsh=NncyemJwYzNpZ3B2"
             target="_blank"
             rel="noreferrer"
             title="Instagram"
@@ -72,7 +72,7 @@ const Contact = () => {
             <FontAwesomeIcon icon={faInstagram} />
           </a>
           <a
-            href="https://www.youtube.com/skylark"
+            href="https://www.youtube.com/@SkylarkInfotainment"
             target="_blank"
             rel="noreferrer"
             title="YouTube"
@@ -81,7 +81,7 @@ const Contact = () => {
             <FontAwesomeIcon icon={faYoutube} />
           </a>
           <a
-            href="https://open.spotify.com/user/skylark"
+            href="https://open.spotify.com/album/5DRKGThUOKh8qU5z3gpcYk"
             target="_blank"
             rel="noreferrer"
             title="Spotify"
