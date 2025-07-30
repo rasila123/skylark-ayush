@@ -159,19 +159,17 @@ const Home = () => {
       <div className="main-sections-bg">
         <h2 class="section-heading">Our <span>Labels</span></h2>
         <section className="cards-section">
-          <div
-            className="card animated-card"
-            onClick={() => window.open('https://youtube.com/skylarkinfotainment', '_blank')}
-          >
+          <div className="card animated-card" onClick={() => window.open('https://youtube.com/skylarkinfotainment', '_blank')}>
             <img src={require('../assets/infotainment.jpg')} alt="Skylark Infotainment" className="card-img" />
             {/* <span>SKYLARK INFOTAINMENT</span> */}
           </div>
-          <div
-            className="card animated-card"
-            onClick={() => window.open('https://youtube.com/@skylarkbhojpuri', '_blank')}
-          >
+          <div className="card animated-card" onClick={() => window.open('https://youtube.com/@skylarkbhojpuri', '_blank')}>
             <img src={require('../assets/bhojpuri.jpg')} alt="Skylark Bhojpuri" className="card-img" />
             {/* <span>SKYLARK BHOJPURI</span> */}
+          </div>
+          <div className="card animated-card" onClick={() => window.open('https://www.youtube.com/@rasilaInfotainmentrecording', '_blank')}>
+            <img src={require('../assets/rasila.png')} alt="Rasila Infotainment" className="card-img" />
+            {/* <span>Rasila Infotainment</span> */}
           </div>
         </section>
 
