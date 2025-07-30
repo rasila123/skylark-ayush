@@ -11,6 +11,13 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
+  // Detect mobile screen
+  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 600);
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   // Intro video logic disabled; show all content by default
   const navigate = useNavigate();
 
@@ -40,42 +47,42 @@ const Home = () => {
   */
 
   // Dynamic carousel settings for both sections
-  const getCarouselSettings = (itemCount) => {
-    // Default slidesToShow for desktop
-    let slidesToShow = 4;
-    if (itemCount < 4) slidesToShow = itemCount || 1;
-    return {
-      dots: true,
-      infinite: itemCount > slidesToShow, // Only infinite if enough items
-      speed: 500,
-      slidesToShow,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: Math.min(3, itemCount || 1),
-            infinite: itemCount > 3,
-          },
-        },
-        {
-          breakpoint: 900,
-          settings: {
-            slidesToShow: Math.min(2, itemCount || 1),
-            infinite: itemCount > 2,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: Math.min(3, itemCount || 1), // Show at least 3 on mobile
-            infinite: itemCount > 3,
-          },
-        },
-      ],
-      arrows: true,
-    };
-  };
+  // const getCarouselSettings = (itemCount) => {
+  //   // Default slidesToShow for desktop
+  //   let slidesToShow = 4;
+  //   if (itemCount < 4) slidesToShow = itemCount || 1;
+  //   return {
+  //     dots: true,
+  //     infinite: itemCount > slidesToShow, // Only infinite if enough items
+  //     speed: 500,
+  //     slidesToShow,
+  //     slidesToScroll: 1,
+  //     responsive: [
+  //       {
+  //         breakpoint: 1200,
+  //         settings: {
+  //           slidesToShow: Math.min(3, itemCount || 1),
+  //           infinite: itemCount > 3,
+  //         },
+  //       },
+  //       {
+  //         breakpoint: 900,
+  //         settings: {
+  //           slidesToShow: Math.min(2, itemCount || 1),
+  //           infinite: itemCount > 2,
+  //         },
+  //       },
+  //       {
+  //         breakpoint: 600,
+  //         settings: {
+  //           slidesToShow: Math.min(3, itemCount || 1), // Show at least 3 on mobile
+  //           infinite: itemCount > 3,
+  //         },
+  //       },
+  //     ],
+  //     arrows: true,
+  //   };
+  // };
 
   // Get artistList and songs from child components (Associates, Music)
   // We'll use hooks in Home.js to fetch the same data as those components
@@ -277,7 +284,37 @@ const Home = () => {
 
         <section className="associates-section">
           <h2 class="section-heading">Our <Link to="/associates"><span className="clickable">Artists</span></Link></h2>
-          <Slider {...getCarouselSettings(artistList.length)}>
+          <Slider
+            dots={true}
+            infinite={artistList.length > (isMobile ? 2 : 4)}
+            speed={500}
+            slidesToShow={isMobile ? 2 : Math.min(4, artistList.length || 1)}
+            slidesToScroll={1}
+            centerMode={isMobile}
+            centerPadding={isMobile ? '9px' : '0px'}
+            arrows={true}
+            responsive={[{
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: Math.min(3, artistList.length || 1),
+                infinite: artistList.length > 3,
+              },
+            }, {
+              breakpoint: 900,
+              settings: {
+                slidesToShow: Math.min(2, artistList.length || 1),
+                infinite: artistList.length > 2,
+              },
+            }, {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                centerMode: true,
+                centerPadding: '9px',
+                infinite: artistList.length > 2,
+              },
+            }]}
+          >
             {artistList.map((artist, idx) => (
               <div key={artist.name + idx}>
                 <div
@@ -285,7 +322,7 @@ const Home = () => {
                   style={{cursor:'pointer'}}
                   onClick={() => navigate(`/artist/${encodeURIComponent(artist.name)}`)}
                 >
-                  <img src={artist.img || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={artist.name} style={{objectFit:'cover',display:'block',margin:'0 auto'}} />
+                  <img src={artist.img || 'https://cdn-icons-png.flaticon.com/512/149/149071.png'} alt={artist.name} />
                   <p>{artist.name}</p>
                 </div>
               </div>
@@ -294,16 +331,50 @@ const Home = () => {
         </section>
         <section className="music-section">
           <h2 class="section-heading">Our <Link to="/music"><span className="clickable">Music</span></Link></h2>
-          <Slider {...getCarouselSettings(songs.length)}>
+          <Slider
+            dots={true}
+            infinite={songs.length > (isMobile ? 2 : 4)}
+            speed={500}
+            slidesToShow={isMobile ? 2 : Math.min(4, songs.length || 1)}
+            slidesToScroll={1}
+            centerMode={isMobile}
+            centerPadding={isMobile ? '24px' : '0px'}
+            arrows={true}
+            responsive={[{
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: Math.min(3, songs.length || 1),
+                infinite: songs.length > 3,
+              },
+            }, {
+              breakpoint: 900,
+              settings: {
+                slidesToShow: Math.min(2, songs.length || 1),
+                infinite: songs.length > 2,
+              },
+            }, {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                centerMode: true,
+                centerPadding: '24px',
+                infinite: songs.length > 2,
+              },
+            }]}
+          >
             {songs.map((song) => (
               <div key={song.id}>
                 <div
                   className={'song-card'}
                   onClick={() => window.open(song.url, '_blank')}
                 >
-                  <img src={song.thumbnail} alt={song.title} />
-                  <div style={{marginTop:'8px'}}>
-                    <p style={{fontWeight:'bold',margin:'0'}}>{song.title}</p>
+                  <img
+                    src={song.thumbnail}
+                    alt={song.title}
+                    className={isMobile ? 'song-img-mobile' : 'song-img-desktop'}
+                  />
+                  <div className="song-title">
+                    <p>{song.title}</p>
                   </div>
                 </div>
               </div>

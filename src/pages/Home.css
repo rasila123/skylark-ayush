@@ -104,6 +104,18 @@
 }
 
 @media (max-width: 600px) {
+  /* Add gap between artist cards in carousel for mobile */
+  .associates-section .slick-track {
+    display: flex !important;
+    gap: 18px !important;
+  }
+  .music-section .slick-track {
+    display: flex !important;
+    gap: 18px !important;
+  }
+  .artist-card.associate-home {
+    margin-bottom: 0 !important;
+  }
   .platforms {
     grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     gap: 10px 10px;
@@ -635,6 +647,25 @@ align-items: center;
   transition: filter 0.3s ease;
 }
 
+.song-img-desktop {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  background: #f8f8f8;
+}
+.song-img-mobile {
+  width: 100%;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+  background: #f8f8f8;
+}
+
 @media (max-width: 600px) {
   .artist-card.associate-home {
     width: 100% !important;
@@ -679,7 +710,7 @@ align-items: center;
   }
   .song-card img {
     width: 100% !important;
-    height: 100%;
+    /* height: 100%; */
     min-width: 0 !important;
     min-height: 0 !important;
     max-width: 100vw !important;
@@ -751,4 +782,12 @@ align-items: center;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
+}
+
+.song-title {
+  margin-top: 8px;
+}
+.song-title p {
+  font-weight: bold;
+  margin: 0;
 }
