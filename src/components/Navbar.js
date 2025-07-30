@@ -40,7 +40,7 @@ const Navbar = () => {
       <ul className={`nav-links${menuOpen ? ' open' : ''}`}>
         <li><Link to="/" onClick={() => setMenuOpen(false)}>Home</Link></li>
         <li><Link to="/music" onClick={() => setMenuOpen(false)}>Music</Link></li>
-        <li><Link to="/associates" onClick={() => setMenuOpen(false)}>Associates</Link></li>
+        <li><Link to="/associates" onClick={() => setMenuOpen(false)}>Artists</Link></li>
         <li><Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link></li>
         <li><Link to="/contact" onClick={() => setMenuOpen(false)}>Contact Us</Link></li>
       </ul>

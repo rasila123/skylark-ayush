@@ -174,7 +174,7 @@ const Home = () => {
         </section>
 
         <section className="presence-section">
-          <h2 class="section-heading">Our <span>Presence</span></h2>
+          <h2 className="section-heading">Our <span>Presence</span></h2>
           <div className="platforms">
             {(() => {
               const logoMap = {
@@ -206,6 +206,36 @@ const Home = () => {
                 'Rdio': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAsKIPKN1PnFJOJn4ItiP9LZrFkc1qjt7DOw&s',
                 'CapCut': 'https://logos-world.net/wp-content/uploads/2024/01/CapCut-Logo.png'
               };
+              // Add your links here. Key = platform name, value = URL
+              const linkMap = {
+                'iTunes': '#',
+                'Rdio': '#',
+                'Shazam': '#',
+                'Apple Music': '#',
+                'Spotify': '#',
+                'Amazon Music': '#',
+                'Audible': '#',
+                'Snapchat': '#',
+                'Canva': '#',
+                'Pandora': '#',
+                'YouTube': '#',
+                'YouTube Shorts': '#',
+                'gaana': '#',
+                'SoundCloud': '#',
+                'Saavn': '#',
+                'Hungama Music': '#',
+                'Resso': '#',
+                'Wynk Music': '#',
+                'Anghami Music': '#',
+                'Audible Magic': '#',
+                'Facebook': '#',
+                'Instagram': '#',
+                'WhatsApp': '#',
+                'YouTube Music': '#',
+                'WeSing': '#',
+                'CapCut': '#',
+                'TikTok': '#',
+              };
               return [
                 'iTunes',
                 'Rdio',
@@ -236,7 +266,9 @@ const Home = () => {
                 'TikTok'
               ].map((name) => (
                 <div className="platform" key={name}>
-                  <img src={logoMap[name] || 'https://img.icons8.com/color/48/musical-notes.png'} alt={name} className="platform-logo" />
+                  <a href={linkMap[name]} target="_blank" rel="noopener noreferrer">
+                    <img src={logoMap[name] || 'https://img.icons8.com/color/48/musical-notes.png'} alt={name} className="platform-logo" />
+                  </a>
                 </div>
               ));
             })()}

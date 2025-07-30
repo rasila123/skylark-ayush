@@ -2,8 +2,48 @@
   padding: 40px 20px;
   text-align: center;
 }
-.socials a {
+.contact-page > p > a {
+  color: #000;
+  text-decoration: none;
+}
+.contact-page > p > a:hover {
+  color: #ff6f31;
+  transition: transform 0.2s;
+  font-weight: bolder;
+}
+.social a {
   margin: 10px;
   color: #00bfff;
   text-decoration: none;
+}
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.social-icons a {
+  color: #333;
+  text-decoration: none;
+  transition: transform 0.2s;
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+@media (max-width: 600px) {
+  .social-icons {
+    gap: 10px;
+  }
+  .social-icons a {
+    font-size: 1.5rem;
+    margin: 5px;
+  }
 }
