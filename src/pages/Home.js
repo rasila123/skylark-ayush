@@ -9,9 +9,20 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useNavigate } from 'react-router-dom';
 
+
 const Home = () => {
   // Intro video logic disabled; show all content by default
   const navigate = useNavigate();
+
+  const [showIntro, setShowIntro] = React.useState(false);
+  React.useEffect(() => {
+  const timer = setTimeout(() => {
+    setShowIntro(true);
+  }, 5000); // 5 seconds
+
+  return () => clearTimeout(timer);
+}, []);
+
 
   /*
   useEffect(() => {
@@ -94,51 +105,57 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      {/* Intro video and transition logic disabled */}
-      {/* Center logo and intro */}
-      <div className="intro-stat">
-        <img src={logo} alt="Skylark Logo Large" className="big-logo" />
-        <h1 class="section-heading-h1" >Skylark Infotainment</h1>
-        {/* <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p> */}
-        <button onClick={() => navigate('/contact')}>Contact Us</button>
-      </div>
-      {/* Only show intro content in the center of the counter row below */}
-      <div className="countercont">
-        <div className="counters-row">
-          {/* Left counters */}
-          <div className="common-box">
-            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
-            <span className="count-data">20 + Years</span>
-            <div className="counter-text">Experience</div>
-          </div>
-          <div className="common-box">
-            <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
-            <span className="count-data">1K + </span>
-            <div className="counter-text">Satisfied Artists</div>
-          </div>
-          <div className="common-box">
-            <i><img src="https://cdn-icons-png.flaticon.com/512/4472/4472584.png" alt="Audios" /></i>
-            <span className="count-data">30K + </span>
-            <div className="counter-text">Audios</div>
-          </div>
-          {/* Right counters */}
-          <div className="common-box">
-            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISmhLTbb8GC8NgGhQMpz3J-0OBbBqwdgUsA&s" alt="Videos" /></i>
-            <span className="count-data">15K + </span>
-            <div className="counter-text">Videos</div>
-          </div>
-          <div className="common-box">
-            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9v03DGCRcA3m53cTgCgk3I-DHv2WzRz-8uA&s" alt="Subscribers" /></i>
-            <span className="count-data">2M + </span>
-            <div className="counter-text">Subscribers</div>
-          </div>
-          <div className="common-box">
-            <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEbHSnYazsz4iNmEq6tD_aBVdzq-fgNPmObw&s" alt="Views" /></i>
-            <span className="count-data">7B + </span>
-            <div className="counter-text">Views</div>
+      {!showIntro ? (
+        <div className="home-video">
+          <video src={require('../assets/intro.mp4')} className="intro-video" autoPlay muted loop />
+        </div>) : (
+          <div className="intro-part">
+        <div className="intro-stat">
+          <img src={logo} alt="Skylark Logo Large" className="big-logo" />
+          <h1 class="section-heading-h1" >Skylark Infotainment</h1>
+          {/* <p style={{margin: '0 0 10px 0'}}>Music Beyond Limits</p> */}
+          <button onClick={() => navigate('/contact')}>Contact Us</button>
+        </div>
+        {/* Only show intro content in the center of the counter row below */}
+        <div className="countercont">
+          <div className="counters-row">
+            {/* Left counters */}
+            <div className="common-box">
+              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuvH0WVv7w6V-d_iDSXBQCmz9CGM0XWPotHQ&s" alt="Experience" /></i>
+              <span className="count-data">20 + Years</span>
+              <div className="counter-text">Experience</div>
+            </div>
+            <div className="common-box">
+              <i><img src="https://cdn-icons-png.flaticon.com/512/9104/9104636.png" alt="Artists" /></i>
+              <span className="count-data">1K + </span>
+              <div className="counter-text">Satisfied Artists</div>
+            </div>
+            <div className="common-box">
+              <i><img src="https://cdn-icons-png.flaticon.com/512/4472/4472584.png" alt="Audios" /></i>
+              <span className="count-data">30K + </span>
+              <div className="counter-text">Audios</div>
+            </div>
+            {/* Right counters */}
+            <div className="common-box">
+              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRISmhLTbb8GC8NgGhQMpz3J-0OBbBqwdgUsA&s" alt="Videos" /></i>
+              <span className="count-data">15K + </span>
+              <div className="counter-text">Videos</div>
+            </div>
+            <div className="common-box">
+              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9v03DGCRcA3m53cTgCgk3I-DHv2WzRz-8uA&s" alt="Subscribers" /></i>
+              <span className="count-data">2M + </span>
+              <div className="counter-text">Subscribers</div>
+            </div>
+            <div className="common-box">
+              <i><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEbHSnYazsz4iNmEq6tD_aBVdzq-fgNPmObw&s" alt="Views" /></i>
+              <span className="count-data">7B + </span>
+              <div className="counter-text">Views</div>
+            </div>
           </div>
         </div>
       </div>
+        )}
+      
       <div className="main-sections-bg">
         <h2 class="section-heading">Our <span>Labels</span></h2>
         <section className="cards-section">
