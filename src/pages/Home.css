@@ -107,6 +107,9 @@
   display: flex !important;
   gap: 18px !important;
 }
+.services-section {
+  padding: 40px 20px;
+}
 
 @media (max-width: 600px) {
   /* Add gap between artist cards in carousel for mobile */
