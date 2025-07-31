@@ -93,7 +93,7 @@ const Admin = () => {
 
   // Helper: upload file to Supabase Storage and return public URL
   const uploadFileAndGetURL = async (file, bucket, path) => {
-    const { data, error } = await supabase.storage.from(bucket).upload(path, file);
+    const { error } = await supabase.storage.from(bucket).upload(path, file);
     if (error) throw error;
     const { data: publicUrlData } = supabase.storage.from(bucket).getPublicUrl(path);
     return publicUrlData.publicUrl;
@@ -128,6 +128,7 @@ const Admin = () => {
     return (
       <div className="admin-login-bg">
         <div className="admin-login-box">
+          <div style={{textAlign:'center',marginBottom:'12px',color:'#2a5d9f',fontWeight:'bold'}}>Official Skylark Infotainment Admin Panel</div>
           <h2 className="admin-login-title">Admin Login</h2>
           <form onSubmit={handleLogin} autoComplete="off">
             <div className="admin-secret-field">

@@ -4,6 +4,7 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
+      <p style={{fontSize: '0.95em', marginTop: '8px'}}>Official site of Skylark Infotainment. <a href="/privacy-policy.html" style={{color:'#2a5d9f'}}>Privacy Policy</a></p>
       <p>Developed with ❤️ by <a style={{textDecoration: 'none', color: 'inherit' }} href ="/admin">Ayush Raj Sharma</a></p>
       <p>Email: rasilarecording@gmail.com</p>
       <p>Phone: +91-9826579100</p> 
