@@ -456,7 +456,10 @@ const Home = () => {
                 <div
                   className="service-box"
                   style={{ cursor: 'pointer' }}
-                  onClick={() => navigate('/services')}
+                  onClick={() => {
+                    navigate('/services');
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                  }}
                 >
                   <div className="service-box-front">
                     <img src={service.img} alt={service.name} className="service-img" />
