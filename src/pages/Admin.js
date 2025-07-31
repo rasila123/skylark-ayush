@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import './Admin.css';
 
-
+// Domain skylarkinfotainment.in purchased from hostinger and hosted on vercel
 
 const Admin = () => {
   const [authed, setAuthed] = useState(false);
@@ -126,7 +126,7 @@ const Admin = () => {
 
   if (!authed) {
     return (
-      <div className="admin-login-bg">
+      <div className="admin-login-bg" style={{ paddingBottom: '80px' }}>
         <div className="admin-login-box">
           <div style={{textAlign:'center',marginBottom:'12px',color:'#2a5d9f',fontWeight:'bold'}}>Official Skylark Infotainment Admin Panel</div>
           <h2 className="admin-login-title">Admin Login</h2>
@@ -249,7 +249,7 @@ const Admin = () => {
   // Card UI for options
   if (!option) {
     return (
-      <div className="admin-panel-container">
+      <div className="admin-panel-container" style={{ paddingBottom: '80px' }}>
         <div className="admin-panel-header">
           <h2>Admin Panel</h2>
           <button onClick={handleLogout} className="admin-logout-btn">Logout</button>
@@ -271,7 +271,7 @@ const Admin = () => {
   // Add Music UI
   if (option === 'add') {
     return (
-      <div className="admin-add-container">
+      <div className="admin-add-container" style={{ paddingBottom: '80px' }}>
         <button onClick={()=>setOption(null)} className="admin-back-btn">&larr; Back</button>
         <h2>Upload New Song</h2>
         <form onSubmit={handleUploadWithArtist}>
@@ -338,7 +338,7 @@ const Admin = () => {
   // Update Music UI
   if (option === 'update') {
     return (
-      <div className="admin-update-container">
+      <div className="admin-update-container" style={{ paddingBottom: '80px' }}>
         <button onClick={()=>setOption(null)} className="admin-back-btn">&larr; Back</button>
         <h2>Update Music</h2>
         {loadingSongs ? (

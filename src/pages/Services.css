@@ -10,3 +10,141 @@
   margin: 10px 0;
   font-size: 18px;
 }
+.services-container {
+  padding: 32px 12px;
+  background: #f8f9fa;
+}
+.services-heading {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 32px;
+  color: #2a5d9f;
+}
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+  justify-items: center;
+}
+.service-box {
+  width: 100%;
+  max-width: 340px;
+  min-height: 220px;
+  perspective: 1200px;
+  cursor: pointer;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.service-box:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.service-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Remove flip transform, only animate box-shadow/scale if needed */
+  transition: box-shadow 0.3s, transform 0.3s;
+}
+.service-box.flipped .service-box-inner {
+  /* Remove flip effect */
+}
+.service-box-front, .service-box-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+}
+.service-box-front {
+  background: #fff;
+}
+
+.service-box.flipped .service-img {
+  filter: brightness(0.55) blur(6px);
+  transition: filter 0.5s;
+}
+.service-img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  filter: brightness(0.55);
+  border-radius: 18px;
+  transition: filter 0.5s;
+  background: grey;
+}
+.service-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.service-name {
+  font-size: 1.35rem;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.service-know {
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  text-align: center;
+  margin-top: 2px;
+  letter-spacing: 0.02em;
+}
+.service-box-back {
+  background: linear-gradient(45deg, #530909, #a91f1f, #ff0000);
+  color: #fff;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Default details style */
+.service-details {
+  font-size: 1.08rem;
+  text-align: center;
+  line-height: 1.5;
+  padding: 18px;
+}
+
+/* Overlay details style for flipped state */
+
+.service-details-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 100%;
+  width: 100%; */
+  color: #fff;
+  font-size: 1.08rem;
+  background: none;
+  margin: 0;
+  padding: 0 18px;
+  text-align: center;
+  border-radius: 0;
+  box-shadow: none;
+}
+@media (max-width: 600px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .service-box {
+    max-width: 98vw;
+    min-height: 180px;
+  }
+  .service-details {
+    font-size: 1rem;
+  }
+}
