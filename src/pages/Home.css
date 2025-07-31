@@ -103,6 +103,11 @@
   }
 }
 
+.services-section .slick-track {
+  display: flex !important;
+  gap: 18px !important;
+}
+
 @media (max-width: 600px) {
   /* Add gap between artist cards in carousel for mobile */
   .associates-section .slick-track {
@@ -110,6 +115,10 @@
     gap: 18px !important;
   }
   .music-section .slick-track {
+    display: flex !important;
+    gap: 18px !important;
+  }
+  .services-section .slick-track {
     display: flex !important;
     gap: 18px !important;
   }

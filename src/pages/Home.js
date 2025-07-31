@@ -381,6 +381,83 @@ const Home = () => {
             ))}
           </Slider>
         </section>
+        <section className="services-section">
+          <h2 class="section-heading">Our <Link to="/services"><span className="clickable">Services</span></Link></h2>
+          <Slider
+            dots={true}
+            infinite={true}
+            speed={500}
+            slidesToShow={isMobile ? 2 : 4}
+            slidesToScroll={1}
+            centerMode={isMobile}
+            centerPadding={isMobile ? '24px' : '0px'}
+            arrows={true}
+            responsive={[{
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 3,
+                infinite: true,
+              },
+            }, {
+              breakpoint: 900,
+              settings: {
+                slidesToShow: 2,
+                infinite: true,
+              },
+            }, {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                centerMode: true,
+                centerPadding: '24px',
+                infinite: true,
+              },
+            }]}
+          >
+            {[
+              {
+                name: 'Music Production',
+                img: require('../assets/musicproduction.jpg'),
+                details: 'Professional music production & Composition for all genres. Studio recording, mixing, mastering, songwriting, background music, sound effects and more.'
+              },
+              {
+                name: 'Video Production',
+                img: require('../assets/videoproduction.jpg'),
+                details: 'Professional video production for all genres. Studio recording, mixing, mastering, and more.'
+              },
+              {
+                name: 'Live Events',
+                img: require('../assets/liveevent.jpg'),
+                details: 'Live Events Recording, Streaming, Editing, distribution, management.'
+              },
+              {
+                name: 'YouTube Services',
+                img: require('../assets/youtubeservices.jpg'),
+                details: 'YouTube channel management, Content creation & promotion, reels and shorts, live telecasts etc.'
+              },
+              {
+                name: 'Distribution',
+                img: require('../assets/distribution.jpg'),
+                details: 'Music distribution to all major platforms including Spotify, Apple Music, YouTube Music and more.'
+              }
+            ].map((service) => (
+              <div key={service.name}>
+                <div className="service-box">
+                  <div className="service-box-front">
+                    <img src={service.img} alt={service.name} className="service-img" />
+                    <div className="service-overlay">
+                      <div className="service-name">{service.name}</div>
+                      <div className="service-know">click to know more</div>
+                    </div>
+                  </div>
+                  <div className="service-box-back">
+                    <div className="service-details">{service.details}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </section>
       </div>
     </div>
   );
