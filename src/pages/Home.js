@@ -417,37 +417,51 @@ const Home = () => {
             {[
               {
                 name: 'Music Production',
-                img: require('../assets/musicproduction.jpg'),
-                details: 'Professional music production & Composition for all genres. Studio recording, mixing, mastering, songwriting, background music, sound effects and more.'
+                img: require('../assets/musicproduction.jpg')
               },
               {
                 name: 'Video Production',
-                img: require('../assets/videoproduction.jpg'),
-                details: 'Professional video production for all genres. Studio recording, mixing, mastering, and more.'
+                img: require('../assets/videoproduction.jpg')
               },
               {
-                name: 'Live Events',
-                img: require('../assets/liveevent.jpg'),
-                details: 'Live Events Recording, Streaming, Editing, distribution, management.'
+                name: 'Studio Setup',
+                img: require('../assets/studiosetup.jpg')
               },
               {
                 name: 'YouTube Services',
-                img: require('../assets/youtubeservices.jpg'),
-                details: 'YouTube channel management, Content creation & promotion, reels and shorts, live telecasts etc.'
+                img: require('../assets/youtubeservices.jpg')
               },
               {
                 name: 'Distribution',
-                img: require('../assets/distribution.jpg'),
-                details: 'Music distribution to all major platforms including Spotify, Apple Music, YouTube Music and more.'
+                img: require('../assets/distribution.jpg')
+              },
+              {
+                name: 'Organising Events',
+                img: require('../assets/liveshow.jpg')
+              },
+              {
+                name: 'Social media management',
+                img: require('../assets/socialmedia.jpg')
+              },
+              {
+                name: 'Live Events Coverage',
+                img: require('../assets/liveevent.jpg')
+              },
+              {
+                name: 'Equipment Rental',
+                img: require('../assets/rent.jpg')
               }
             ].map((service) => (
               <div key={service.name}>
-                <div className="service-box">
+                <div
+                  className="service-box"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => navigate('/services')}
+                >
                   <div className="service-box-front">
                     <img src={service.img} alt={service.name} className="service-img" />
                     <div className="service-overlay">
                       <div className="service-name">{service.name}</div>
-                      <div className="service-know">click to know more</div>
                     </div>
                   </div>
                   <div className="service-box-back">
