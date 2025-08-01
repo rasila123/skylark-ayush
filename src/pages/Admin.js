@@ -173,6 +173,31 @@ const Admin = () => {
       setUploading(false);
       return;
     }
+    // Validate song image dimensions (must be 300x300px)
+    const validateImageDimensions = (file) => {
+      return new Promise((resolve, reject) => {
+        const img = new window.Image();
+        img.onload = function() {
+          if (img.width === 300 && img.height === 300) {
+            resolve(true);
+          } else {
+            reject(new Error('Song image must be exactly 300x300 pixels.'));
+          }
+        };
+        img.onerror = function() {
+          reject(new Error('Invalid image file.'));
+        };
+        img.src = URL.createObjectURL(file);
+      });
+    };
+    try {
+      await validateImageDimensions(songImage);
+    } catch (err) {
+      alert(err.message);
+      setError(err.message);
+      setUploading(false);
+      return;
+    }
     // Check for duplicate URL in Supabase
     const { data: existing } = await supabase.from('songs').select('*').eq('url', songUrl);
     if (existing && existing.length > 0) {
@@ -329,6 +354,16 @@ const Admin = () => {
           </div>
           <button type="submit" disabled={uploading} className="admin-upload-btn">Upload</button>
         </form>
+        {uploading && (
+          <div className="admin-uploading-spinner" style={{marginTop:'16px'}}>
+            <svg width="36" height="36" viewBox="0 0 50 50">
+              <circle cx="25" cy="25" r="20" fill="none" stroke="#2a5d9f" strokeWidth="5" strokeLinecap="round" strokeDasharray="31.4 31.4" transform="rotate(-90 25 25)">
+                <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
+              </circle>
+            </svg>
+            <div style={{color:'#2a5d9f',marginTop:'8px',fontWeight:'bold'}}>Uploading...</div>
+          </div>
+        )}
         {error && <p className="admin-error-msg">{error}</p>}
         {success && <p className="admin-success-msg">{success}</p>}
       </div>

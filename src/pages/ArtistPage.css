@@ -5,4 +5,8 @@
       max-width: 100vw !important;
       padding: 0 !important;
     }
+    .song-card-artist img {
+      height: 300px !important;
+      max-height: 300px !important;
+    }
 }
