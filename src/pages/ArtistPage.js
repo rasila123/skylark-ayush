@@ -33,7 +33,7 @@ const ArtistPage = () => {
       ) : (
         <div className="song-grid">
           {songs.map((song, index) => (
-            <div className="song-card" key={song.id || index} onClick={() => window.open(song.url, '_blank')}>
+            <div className="song-card song-card-artist" key={song.id || index} onClick={() => window.open(song.url, '_blank')}>
               <img src={song.thumbnail} alt={song.title} />
               <p>{song.title}</p>
             </div>
