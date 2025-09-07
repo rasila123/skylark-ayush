@@ -57,10 +57,10 @@
   font-size: 20px;
   opacity: 0;
   transition: opacity 0.3s ease;
-  white-space: nowrap;
+  white-space: normal;
   text-align: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
+  word-break: break-word;
   font-weight: bold;
   background: rgba(0,0,0,0.4);
   border-radius: 8px;

@@ -178,10 +178,10 @@ const Admin = () => {
       return new Promise((resolve, reject) => {
         const img = new window.Image();
         img.onload = function() {
-          if (img.width === 300 && img.height === 300) {
+          if (img.width === img.height) {
             resolve(true);
           } else {
-            reject(new Error('Song image must be exactly 300x300 pixels.'));
+            reject(new Error('Song image width x height must be equal.'));
           }
         };
         img.onerror = function() {
