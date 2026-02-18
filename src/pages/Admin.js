@@ -60,18 +60,21 @@ const Admin = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
-    // Fetch password from DB (table: password, column: password)
-    const { data, error: dbError } = await supabase.from('password').select('password').single();
-    if (dbError || !data || !data.password) {
-      setError('Error fetching secret code from server.');
-      setAuthed(false);
-      return;
-    }
-    if (secret !== data.password) {
-      setError('Incorrect secret code.');
-      setAuthed(false);
-      return;
-    }
+      // Fetch all passwords from DB and accept if entered secret matches any row.
+      const { data, error: dbError } = await supabase.from('password').select('password');
+      if (dbError || !data) {
+        console.error('Supabase error fetching passwords:', dbError);
+        setError(dbError ? `Error fetching secret codes: ${dbError.message}` : 'Error fetching secret codes from server.');
+        setAuthed(false);
+        return;
+      }
+      const entered = secret.trim();
+      const passwords = data.map(r => (r.password || '').toString());
+      if (!passwords.includes(entered)) {
+        setError('Incorrect secret code.');
+        setAuthed(false);
+        return;
+      }
     setAuthed(true);
   };
 
