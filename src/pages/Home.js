@@ -187,7 +187,7 @@ const Home = () => {
               const logoMap = {
                 'iTunes': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIiKOracQ8AnYdnjgy-CQe3Qkot0e0CU5XwQ&s',
                 'Shazam': 'https://img.icons8.com/color/96/shazam.png',
-                'Apple Music': 'https://logos-world.net/wp-content/uploads/2020/11/Apple-Music-Logo.png',
+                'Apple Music': 'https://prod-ditto-store-images.s3.eu-west-2.amazonaws.com/63/apple-music.svg?X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA2SKU3JLGABUKUI3R%2F20260222%2Feu-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260222T074453Z&X-Amz-SignedHeaders=host&X-Amz-Expires=1200&X-Amz-Signature=4cb97029c09b70be6aa90622f9c9a127dca14a0635742488981aa957144aff97',
                 'Spotify': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdhm0QX77yGJFrD_lk6iASPtpxc_is48Sc_g&s',
                 'Amazon Music': 'https://wallpapers.com/images/hd/amazon-music-logo-owwdlwkbkbplmz91-2.jpg',
                 'Audible': 'https://cdn.worldvectorlogo.com/logos/audible.svg',
